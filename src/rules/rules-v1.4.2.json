@@ -1,0 +1,63 @@
+{
+  "version": "1.4.2",
+  "effectiveDate": "2026-04-01",
+  "stateAuthority": "Government of Jharkhand - Welfare Department",
+  "scheme": "Post-Matric Scholarship for Scheduled Tribe Students",
+  "rules": [
+    {
+      "id": "RULE-INC-01",
+      "name": "Parental Annual Income Ceiling",
+      "category": "ELIGIBILITY",
+      "description": "Total parental/guardian annual income must not exceed statutory ceiling.",
+      "parameter": "incomeCeilingINR",
+      "threshold": 250000,
+      "severity": "CRITICAL",
+      "statutoryReference": "MoTA Post-Matric ST Scheme Guidelines Section 4.2"
+    },
+    {
+      "id": "RULE-ST-02",
+      "name": "State Scheduled Tribe Schedule Verification",
+      "category": "COMMUNITY_VERIFICATION",
+      "description": "Tribe stated on certificate must match the Scheduled Tribe Schedule of the issuing State. AI checks consistency/validity; it never decides tribe status.",
+      "parameter": "stateSTGazette",
+      "validTribesInJharkhand": [
+        "Asur", "Baiga", "Banjara", "Bathudi", "Bedia", "Binjhia", "Birhor", "Birjia", 
+        "Chero", "Chick-Baraik", "Gond", "Gorait", "Ho", "Karmali", "Kharia", "Kharwar", 
+        "Khond", "Kisan", "Kora", "Korwa", "Lohra", "Mahli", "Mal-Pahariya", "Munda", 
+        "Oraon", "Parhaiya", "Santhal", "Sauria-Pahariya", "Savar", "Bhumij", "Kol", "Kawar"
+      ],
+      "severity": "CRITICAL",
+      "statutoryReference": "Constitution (Scheduled Tribes) Order, 1950 (Jharkhand Part XXI)"
+    },
+    {
+      "id": "RULE-VAL-03",
+      "name": "Income Certificate Freshness Window",
+      "category": "DOCUMENT_VALIDITY",
+      "description": "Income certificates must be issued within the state-mandated validity period (12 months in Jharkhand).",
+      "parameter": "validityMonths",
+      "thresholdMonths": 12,
+      "severity": "DEFICIENCY",
+      "statutoryReference": "Jharkhand Revenue Dept Circular No. 14/Rev/2023"
+    },
+    {
+      "id": "RULE-ID-04",
+      "name": "Applicant Identity Fuzzy Consistency",
+      "category": "IDENTITY_ALIGNMENT",
+      "description": "Applicant Name and Father/Guardian Name on certificate must match application form within fuzzy match tolerance (Levenshtein similarity >= 0.85).",
+      "parameter": "nameSimilarityThreshold",
+      "threshold": 0.85,
+      "severity": "STANDARD_REVIEW",
+      "statutoryReference": "Aadhaar e-KYC and Certificate Matching Standard v2.1"
+    },
+    {
+      "id": "RULE-BANK-05",
+      "name": "Bank Account Multi-Applicant Clustering",
+      "category": "SYNDICATE_RISK",
+      "description": "Detects if a single bank account or IFSC is linked to multiple unrelated applicants across institutes.",
+      "parameter": "maxSharedAccountsThreshold",
+      "threshold": 3,
+      "severity": "REVIEW_ALERT",
+      "statutoryReference": "PFMS DBT Integrity Guardrail 2025"
+    }
+  ]
+}
